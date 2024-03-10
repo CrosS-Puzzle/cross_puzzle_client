@@ -1,8 +1,8 @@
 function Home() {
   return (
-    <div>
-      <h1>Home</h1>
-    </div>
+    <>
+      <div className="h-screen flex flex-row">test</div>
+    </>
   )
 }
 

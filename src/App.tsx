@@ -11,8 +11,7 @@ function App() {
         <Route path="/" element={<Navigate replace to="/home" />} />
         <Route path="/home" element={<Home />} />
         {/* <Route path="/login" element="Login" /> */}
-        <Route path="/puzzle" element="Puzzle" />
-        <Route path="/puzzle/:id" element="Category" />
+        <Route path="/puzzle/:id" element="puzzle page" />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

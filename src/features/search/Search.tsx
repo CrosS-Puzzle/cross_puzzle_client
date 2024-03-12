@@ -1,4 +1,4 @@
-import FindIcon from '../assets/icons/Find'
+import FindIcon from '../../assets/icons/Find'
 
 function Search() {
   return (

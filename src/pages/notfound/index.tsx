@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 function NotFound() {
   return (
-    <div className="flex flex-col items-center justify-center w-full min-h-[400px] space-y-4">
+    <div className="flex flex-col items-center justify-center w-full h-full min-h-[400px] space-y-4">
       <div className="flex flex-col items-center justify-center space-y-4 text-center">
         <h1 className="text-4xl font-bold tracking-tighter sm:text-6xl">
           Page Not Found

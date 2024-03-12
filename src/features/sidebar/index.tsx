@@ -18,7 +18,7 @@ function Sidebar() {
       <div className="p-4 flex flex-col">
         <h1>
           <Link to="/home">
-            <span className="text-2xl text-neutral-300">크로스 퍼즐</span>
+            <h1 className="text-2xl text-neutral-300">크로스 퍼즐</h1>
           </Link>
         </h1>
         <h2 className="mt-4 mb-6">
@@ -37,7 +37,7 @@ function Sidebar() {
         </div>
 
         {selectedCat && (
-          <ErrorBoundary fallback={<div>error</div>}>
+          <ErrorBoundary fallback={<div>error</div>} resetKeys={[selectedCat]}>
             <Suspense fallback={<div>Loading...</div>}>
               <PuzzleList />
             </Suspense>

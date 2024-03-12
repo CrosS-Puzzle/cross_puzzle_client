@@ -1,12 +1,13 @@
 import { Link, useSearchParams } from 'react-router-dom'
 
-import Category from './Category'
+import Category from './components/Category'
 
 import SettingIcon from '../../assets/icons/Setting'
 import LoginIcon from '../../assets/icons/Login'
 import Tooltip from '../tooltip/Tooltip'
-import PuzzleList from './PuzzleList'
+import PuzzleList from './components/PuzzleList'
 import { Suspense } from 'react'
+import { ErrorBoundary } from 'react-error-boundary'
 
 function Sidebar() {
   const [searchParams] = useSearchParams()
@@ -28,15 +29,19 @@ function Sidebar() {
 
         <div className="mt-4">
           <span className="text-xs text-neutral-500 mb-2">카테고리 목록</span>
-          <Suspense fallback={<div>Loading...</div>}>
-            <Category />
-          </Suspense>
+          <ErrorBoundary fallback={<div>error</div>}>
+            <Suspense fallback={<div>Loading...</div>}>
+              <Category />
+            </Suspense>
+          </ErrorBoundary>
         </div>
 
         {selectedCat && (
-          <Suspense fallback={<div>Loading...</div>}>
-            <PuzzleList />
-          </Suspense>
+          <ErrorBoundary fallback={<div>error</div>}>
+            <Suspense fallback={<div>Loading...</div>}>
+              <PuzzleList />
+            </Suspense>
+          </ErrorBoundary>
         )}
       </div>
 

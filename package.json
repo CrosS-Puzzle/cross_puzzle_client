@@ -35,5 +35,6 @@
     "tailwindcss": "^3.4.1",
     "typescript": "^5.2.2",
     "vite": "^5.1.4"
-  }
+  },
+  "proxy": "https://api.cross-word.online/"
 }

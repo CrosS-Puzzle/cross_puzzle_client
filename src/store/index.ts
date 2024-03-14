@@ -1,7 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
+import { puzzleSlice } from '../features/puzzle/redux/puzzleSlice'
 
 const store = configureStore({
-  reducer: {},
+  reducer: {
+    puzzle: puzzleSlice.reducer,
+  },
 })
 
 export type RootState = ReturnType<typeof store.getState>

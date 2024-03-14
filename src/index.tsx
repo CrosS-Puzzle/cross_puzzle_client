@@ -13,7 +13,10 @@ import './index.css'
 
 const querytClient = new QueryClient({
   defaultOptions: {
-    queries: {},
+    queries: {
+      gcTime: 1000 * 60 * 60 * 1, // 1 hours
+      staleTime: 1000 * 60 * 5, // 5 minutes
+    },
   },
 })
 

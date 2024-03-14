@@ -14,7 +14,7 @@ function PuzzleList() {
     queryKey: ['puzzles', { selectedCat, sort, page }],
     queryFn: async () => {
       return fetch(
-        `https://api.cross-word.online/v1/puzzle/list?category=${selectedCat}&sort=${sort}&page=${page}`,
+        `/api/list?category=${selectedCat}&sort=${sort}&page=${page}`,
       )
         .then((res) => res.json())
         .then((data) => data.data)

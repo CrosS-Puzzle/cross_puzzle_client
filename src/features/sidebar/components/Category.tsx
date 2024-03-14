@@ -9,7 +9,7 @@ function Category() {
   const { data: categories } = useSuspenseQuery({
     queryKey: ['categories'],
     queryFn: async () => {
-      return fetch('https://api.cross-word.online/v1/puzzle/categories')
+      return fetch('/api/categories')
         .then((res) => res.json())
         .then((data) => data.data)
     },

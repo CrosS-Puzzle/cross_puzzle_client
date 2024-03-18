@@ -1,60 +1,78 @@
-import { usePuzzleStore } from '../hooks/usePuzzleStore'
+import { twMerge } from 'tailwind-merge'
 import { AnswerInfo } from '../constants/types'
-
-import Block from './Block'
+import { usePuzzleStore } from '../hooks/usePuzzleStore'
 
 function PuzzleContainer() {
-  const { puzzle } = usePuzzleStore()
-
-  const puzzleMap = new Array(puzzle?.rowSize).fill('').map(() => {
-    return new Array(puzzle?.colSize).fill([])
-  })
+  const { selectWord, selectedWord, puzzle } = usePuzzleStore()
 
   if (!puzzle) {
-    return <div>Loading...</div>
+    throw new Error(
+      '퍼즐 정보를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.',
+    )
   }
 
-  console.log('rerendered')
+  const { rowSize, colSize, answerInfos } = puzzle
 
-  const answerInfos = puzzle.answerInfos
-
-  for (const wordId in answerInfos) {
-    const { coords, direction, length }: AnswerInfo = answerInfos[wordId]
-
-    if (direction === 0) {
-      for (let i = 0; i < length; i++) {
-        puzzleMap[coords[0]][coords[1] + i] = [
-          ...puzzleMap[coords[0]][coords[1] + i],
-          wordId,
-        ]
-      }
-    }
-
-    if (direction === 1) {
-      for (let i = 0; i < length; i++) {
-        puzzleMap[coords[0] + i][coords[1]] = [
-          ...puzzleMap[coords[0] + i][coords[1]],
-          wordId,
-        ]
-      }
-    }
-  }
+  const width = colSize * 68 + 4
+  const height = rowSize * 68 + 4
 
   return (
-    <div className="p-4 w-fit h-fit flex flex-col gap-0.5 bg-transparent rounded-xl">
-      {puzzleMap.map((row, rowIndex) => {
+    <div
+      className={twMerge('bg-transparent relative p-1 m-1')}
+      style={{
+        width: `${width}px`,
+        height: `${height}px`,
+      }}
+    >
+      {Object.keys(answerInfos).map((wordId: string) => {
+        const { coords, length, word, direction } = answerInfos[
+          wordId
+        ] as AnswerInfo
+
+        const handleOnClick = () => {
+          selectWord(wordId)
+        }
+
         return (
-          <div key={rowIndex} className="flex flex-row gap-0.5">
-            {row.map((blockIds, colIndex) => {
+          <button
+            onClick={handleOnClick}
+            key={word.id}
+            className={twMerge('absolute flex gap-1', '')}
+            style={{
+              top: `${coords[0] * 68 + 4}px`,
+              left: `${coords[1] * 68 + 4}px`,
+              width: direction === 0 ? `${(length - 1) * 70 + 64}px` : '64px',
+              height: direction === 1 ? `${(length - 1) * 70 + 64}px` : '64px',
+              flexDirection: direction === 0 ? 'row' : 'column',
+            }}
+          >
+            {Array.from({ length }).map((_, index) => {
+              const char = word.value?.[index]
+
+              const colors =
+                char === undefined
+                  ? 'bg-neutral-400 text-black'
+                  : 'bg-neutral-700 text-neutral-50'
+
+              const selectedStyle =
+                wordId === selectedWord
+                  ? ' border-2 border-neutral-500 z-10 animate-pulse'
+                  : ''
+
               return (
-                <Block
-                  key={rowIndex.toString() + colIndex.toString()}
-                  id={blockIds}
-                  disabled={blockIds.length === 0}
-                />
+                <div
+                  key={index}
+                  className={twMerge(
+                    'w-16 h-16 rounded-lg flex items-center justify-center',
+                    colors,
+                    selectedStyle,
+                  )}
+                >
+                  {char}
+                </div>
               )
             })}
-          </div>
+          </button>
         )
       })}
     </div>

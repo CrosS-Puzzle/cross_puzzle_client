@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom'
 import { ErrorBoundary } from 'react-error-boundary'
 
 import Fetcher from './components/Fetcher'
-import MemoizedPuzzleContainer from './components/PuzzleContainer'
+import PuzzleContainer from './components/PuzzleContainer'
 import Description from './components/Description'
 
 const Puzzle = () => {
@@ -11,20 +11,20 @@ const Puzzle = () => {
   const puzzleId = location.pathname.split('/').pop()
 
   return (
-    <div className="bg-neutral-400 h-screen flex flex-col items-center">
-      {puzzleId ? (
-        <div>
+    <div className="bg-neutral-300 h-full w-full flex flex-col items-center">
+      <div className='w-full h-fit max-h-[600px] overflow-auto flex flex-row items-start justify-center p-4'>
+        {puzzleId ? (
           <ErrorBoundary fallback={<div>error</div>}>
             <Suspense fallback={<div>Loading...</div>}>
               <Fetcher puzzleId={puzzleId}>
-                <MemoizedPuzzleContainer />
+                <PuzzleContainer />
               </Fetcher>
             </Suspense>
           </ErrorBoundary>
-        </div>
-      ) : (
-        <div>No puzzle id</div>
-      )}
+        ) : (
+          <div>No puzzle id</div>
+        )}
+      </div>
 
       <Description />
     </div>

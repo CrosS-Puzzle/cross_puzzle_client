@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { setPuzzle, setWord } from '../redux/puzzleSlice'
+import { _resetWord, setPuzzle, setWord } from '../redux/puzzleSlice'
 import store from '../../../store'
 import { FETCH_PUZZLE_DTO } from '../constants/dtos'
 import { AnswerInfo, Puzzle } from '../constants/types'
@@ -52,5 +52,10 @@ export const usePuzzleStore = () => {
     dispatch(setWord(wordId))
   }
 
-  return { puzzle, initiate, selectWord, selectedWord }
+  const resetWord = () => {
+    dispatch(_resetWord())
+    console.log("reset")
+  }
+
+  return { puzzle, initiate, resetWord, selectWord, selectedWord }
 }

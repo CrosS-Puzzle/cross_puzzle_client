@@ -27,7 +27,10 @@ export const puzzleSlice = createSlice({
     setWord(state, action: PayloadAction<string>) {
       state.selectedWord = action.payload
     },
+    _resetWord(state) {
+      state.selectedWord = null
+    }
   },
 })
 
-export const { setPuzzle, setWord } = puzzleSlice.actions
+export const { setPuzzle, setWord, _resetWord } = puzzleSlice.actions

@@ -33,11 +33,13 @@ function PuzzleContainer() {
           selectWord(wordId)
         }
 
+        const seletedStyle = selectedWord === wordId ? 'z-10' : ''
+
         return (
           <button
             onClick={handleOnClick}
             key={word.id}
-            className={twMerge('absolute flex gap-1', '')}
+            className={twMerge('absolute flex gap-1', seletedStyle)}
             style={{
               top: `${coords[0] * 68 + 4}px`,
               left: `${coords[1] * 68 + 4}px`,
@@ -45,6 +47,7 @@ function PuzzleContainer() {
               height: direction === 1 ? `${(length - 1) * 70 + 64}px` : '64px',
               flexDirection: direction === 0 ? 'row' : 'column',
             }}
+            disabled={!!puzzle.answerInfos[wordId].word.value}
           >
             {Array.from({ length }).map((_, index) => {
               const char = word.value?.[index]
@@ -56,8 +59,10 @@ function PuzzleContainer() {
 
               const selectedStyle =
                 wordId === selectedWord
-                  ? ' border-2 border-neutral-500 z-10 animate-pulse'
+                  ? 'border-4 border-neutral-500 animate-pulse'
                   : ''
+
+              const zIndex = char ? 'z-30' : 'z-0'
 
               return (
                 <div
@@ -66,6 +71,7 @@ function PuzzleContainer() {
                     'w-16 h-16 rounded-lg flex items-center justify-center',
                     colors,
                     selectedStyle,
+                    zIndex,
                   )}
                 >
                   {char}

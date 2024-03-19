@@ -1,5 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { _resetWord, setPuzzle, setWord } from '../redux/puzzleSlice'
+import {
+  _resetWord,
+  setPuzzle,
+  setWord,
+  _addAnswer,
+} from '../redux/puzzleSlice'
 import store from '../../../store'
 import { FETCH_PUZZLE_DTO } from '../constants/dtos'
 import { AnswerInfo, Puzzle } from '../constants/types'
@@ -11,6 +16,14 @@ export const usePuzzleStore = () => {
     (state: ReturnType<typeof store.getState>) => state.puzzle.puzzle,
   )
 
+  const solvedWords = useSelector(
+    (state: ReturnType<typeof store.getState>) => state.puzzle.solvedWords,
+  )
+
+  const totalWords = useSelector(
+    (state: ReturnType<typeof store.getState>) => state.puzzle.totalWords,
+  )
+
   const selectedWord = useSelector(
     (state: ReturnType<typeof store.getState>) => state.puzzle.selectedWord,
   )
@@ -19,6 +32,8 @@ export const usePuzzleStore = () => {
     if (puzzle?.puzzleId === puzzleDto.data.id) {
       return
     }
+
+    resetWord()
 
     const parsedPuzzle: Puzzle = {
       puzzleId: puzzleDto.data.id,
@@ -54,8 +69,23 @@ export const usePuzzleStore = () => {
 
   const resetWord = () => {
     dispatch(_resetWord())
-    console.log("reset")
   }
 
-  return { puzzle, initiate, resetWord, selectWord, selectedWord }
+  const addAnswer = (id: string, value: string) => {
+    dispatch(_addAnswer({ id, value }))
+    if (solvedWords + 1 === totalWords) {
+      console.log('퍼즐을 모두 풀었습니다.')
+    }
+  }
+
+  return {
+    initiate,
+    resetWord,
+    selectWord,
+    addAnswer,
+    puzzle,
+    selectedWord,
+    solvedWords,
+    totalWords,
+  }
 }

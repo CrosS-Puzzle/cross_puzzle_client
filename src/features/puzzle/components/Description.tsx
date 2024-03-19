@@ -1,22 +1,31 @@
-import { usePuzzleStore } from '../hooks/usePuzzleStore'
+interface DescriptionProps {
+  wordId?: string
+  description: string
+  length: number
+  direction: number
+}
 
-function Description() {
-  const { selectedWord, puzzle } = usePuzzleStore()
-
-  let text = '선택된 단어가 없습니다.'
-
-  const { length, direction } = puzzle?.answerInfos[selectedWord!] || {}
-
-  if (puzzle?.answerInfos[selectedWord!]) {
-    text = puzzle.answerInfos[selectedWord!].word.description
-  }
+function Description({
+  wordId,
+  description,
+  length,
+  direction,
+}: DescriptionProps) {
+  if (!wordId) return <p className="mt-2">위 보드판에서 단어를 선택해주세요.</p>
 
   return (
-    <div className="mt-4 px-8">
-      <p className="text-lg break-keep">
-        설명 : {text} ({direction === 0 ? '가로' : '세로'}, {length}글자)
-      </p>
-    </div>
+    <>
+      <div
+        id={`desciption_${wordId}`}
+        className=" max-w-[480px] break-keep mt-2"
+      >
+        <span className="font-bold">설명</span> : {description}
+        <br />
+        <p className="font-semibold">
+          ({direction === 0 ? '가로' : '세로'}, {length} 글자)
+        </p>
+      </div>
+    </>
   )
 }
 

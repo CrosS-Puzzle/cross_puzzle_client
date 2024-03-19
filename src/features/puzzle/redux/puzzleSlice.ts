@@ -21,7 +21,7 @@ export const puzzleSlice = createSlice({
   reducers: {
     setPuzzle(state, action: PayloadAction<Puzzle>) {
       state.puzzle = action.payload
-      state.totalWords = action.payload.category.length
+      state.totalWords = Object.keys(action.payload.answerInfos).length
       state.solvedWords = 0
     },
     setWord(state, action: PayloadAction<string>) {
@@ -29,8 +29,23 @@ export const puzzleSlice = createSlice({
     },
     _resetWord(state) {
       state.selectedWord = null
-    }
+    },
+    _addAnswer(
+      state,
+      action: PayloadAction<{
+        id: string
+        value: string
+      }>,
+    ) {
+      state.solvedWords += 1
+      state.selectedWord = null
+      if (state.puzzle) {
+        state.puzzle.answerInfos[action.payload.id].word.value =
+          action.payload.value
+      }
+    },
   },
 })
 
-export const { setPuzzle, setWord, _resetWord } = puzzleSlice.actions
+export const { setPuzzle, setWord, _resetWord, _addAnswer } =
+  puzzleSlice.actions

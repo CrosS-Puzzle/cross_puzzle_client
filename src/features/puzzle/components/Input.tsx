@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { usePuzzleStore } from '../redux/usePuzzleStore'
 import { useModal } from '../../modal/redux/useModal'
-import { Link } from 'react-router-dom'
+import { useHistoryStore } from '../redux/useHistoryStore'
 
 interface InputProps {
   wordId: string
@@ -13,7 +13,8 @@ function Input({ wordId, length, ...props }: InputProps) {
   const [value, setValue] = useState('')
 
   const { openModal } = useModal()
-  const { addAnswer, solvedWords, totalWords } = usePuzzleStore()
+  const { addAnswer, solvedWords, totalWords, puzzle } = usePuzzleStore()
+  const { addSolved } = useHistoryStore()
 
   function hanldeOnChange(e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault()
@@ -59,22 +60,25 @@ function Input({ wordId, length, ...props }: InputProps) {
   }
 
   useEffect(() => {
-    if (totalWords > 0) {
+    if (puzzle) {
       if (solvedWords == totalWords) {
+        addSolved(puzzle.puzzleId)
         openModal({
           component: () => {
             return (
               <div className="flex flex-col">
                 <h1 className="text-2xl font-semibold">축하합니다!</h1>
                 <p className="mt-2">모든 단어를 맞추셨습니다.</p>
-                <div className="flex flex-row justify-center ">
+                {/* <div className="flex flex-row justify-center ">
                   <Link
                     to={'/'}
                     className="mt-4 w-full border p-2 rounded-lg text-center"
+                    onClick={() => {
+                    }}
                   >
                     홈으로
                   </Link>
-                </div>
+                </div> */}
               </div>
             )
           },

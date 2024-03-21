@@ -1,9 +1,58 @@
+import { useEffect } from 'react'
+import { useHistoryStore } from '../redux/useHistoryStore'
 import { usePuzzleStore } from '../redux/usePuzzleStore'
 import Description from './Description'
 import Input from './Input'
+import { useModal } from '../../modal/redux/useModal'
 
 function Control() {
   const { selectedWord, puzzle, totalWords, solvedWords } = usePuzzleStore()
+
+  const { solved, checked } = useHistoryStore()
+  const { openModal } = useModal()
+
+  useEffect(() => {
+    const check = () => {
+      if (puzzle) {
+        const isSolved = solved.includes(puzzle.puzzleId)
+        const isCheked = checked.includes(puzzle.puzzleId)
+
+        if (isSolved) {
+          openModal({
+            component: () => {
+              return (
+                <div className="flex flex-col">
+                  <h1 className="text-2xl font-semibold">완료한 퍼즐!</h1>
+                  <p className="mt-2">이미 해당 퍼즐을 모두 풀었습니다.</p>
+                  <p className="">다른 문제를 더 풀어보세요!</p>
+                </div>
+              )
+            },
+          })
+        }
+
+        if (isCheked) {
+          openModal({
+            component: () => {
+              return (
+                <div className="flex flex-col">
+                  <h1 className="text-2xl font-semibold">
+                    정답을 확인한 퍼즐!
+                  </h1>
+                  <p className="mt-2">
+                    정답을 확인하신 퍼즐입니다. 다시 시도하실 수 없습니다.
+                  </p>
+                  <p className="">다른 문제를 더 풀어보세요!</p>
+                </div>
+              )
+            },
+          })
+        }
+      }
+    }
+
+    check()
+  }, [solved, checked, puzzle])
 
   let text = '선택된 단어가 없습니다.'
 

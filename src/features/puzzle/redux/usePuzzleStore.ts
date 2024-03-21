@@ -73,11 +73,8 @@ export const usePuzzleStore = () => {
 
   const addAnswer = (id: string, value: string) => {
     dispatch(_addAnswer({ id, value }))
-    if (solvedWords + 1 === totalWords) {
-      console.log('퍼즐을 모두 풀었습니다.')
-    }
   }
-
+  
   return {
     initiate,
     resetWord,

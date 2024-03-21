@@ -8,6 +8,7 @@ import Category from './components/Category'
 import PuzzleList from './components/PuzzleList'
 import { Suspense } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
+import Spinner from '../../Spinner'
 
 function Sidebar() {
   const [searchParams] = useSearchParams()
@@ -30,7 +31,7 @@ function Sidebar() {
         <div className="mt-4">
           <span className="text-xs text-neutral-500 mb-2">카테고리 목록</span>
           <ErrorBoundary fallback={<div>error</div>}>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Spinner />}>
               <Category />
             </Suspense>
           </ErrorBoundary>
@@ -38,7 +39,7 @@ function Sidebar() {
 
         {selectedCat && (
           <ErrorBoundary fallback={<div>error</div>} resetKeys={[selectedCat]}>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Spinner />}>
               <PuzzleList />
             </Suspense>
           </ErrorBoundary>

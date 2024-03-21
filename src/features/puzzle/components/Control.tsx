@@ -1,4 +1,4 @@
-import { usePuzzleStore } from '../hooks/usePuzzleStore'
+import { usePuzzleStore } from '../redux/usePuzzleStore'
 import Description from './Description'
 import Input from './Input'
 

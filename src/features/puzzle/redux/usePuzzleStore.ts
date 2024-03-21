@@ -4,7 +4,7 @@ import {
   setPuzzle,
   setWord,
   _addAnswer,
-} from '../redux/puzzleSlice'
+} from './puzzleSlice'
 import store from '../../../store'
 import { FETCH_PUZZLE_DTO } from '../constants/dtos'
 import { AnswerInfo, Puzzle } from '../constants/types'

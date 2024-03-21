@@ -1,6 +1,6 @@
 import { twMerge } from 'tailwind-merge'
 import { AnswerInfo } from '../constants/types'
-import { usePuzzleStore } from '../hooks/usePuzzleStore'
+import { usePuzzleStore } from '../redux/usePuzzleStore'
 
 function PuzzleContainer() {
   const { selectWord, selectedWord, puzzle } = usePuzzleStore()

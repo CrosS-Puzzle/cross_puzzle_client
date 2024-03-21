@@ -1,5 +1,5 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
-import { usePuzzleStore } from '../hooks/usePuzzleStore'
+import { usePuzzleStore } from '../redux/usePuzzleStore'
 
 interface FetcherProps {
   puzzleId: string

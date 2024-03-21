@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { usePuzzleStore } from '../hooks/usePuzzleStore'
+import { usePuzzleStore } from '../redux/usePuzzleStore'
 
 interface InputProps {
   wordId: string

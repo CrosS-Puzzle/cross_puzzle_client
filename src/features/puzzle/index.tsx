@@ -11,23 +11,25 @@ const Puzzle = () => {
   const puzzleId = location.pathname.split('/').pop()
 
   return (
-    <div className="bg-neutral-300 h-full w-full flex flex-col items-center">
-      <div className="w-full h-fit max-h-[600px] overflow-auto flex flex-row items-start justify-center p-4">
-        {puzzleId ? (
-          <ErrorBoundary fallback={<div>error</div>}>
-            <Suspense fallback={<div>Loading...</div>}>
-              <Fetcher puzzleId={puzzleId}>
-                <PuzzleContainer />
-              </Fetcher>
-            </Suspense>
-          </ErrorBoundary>
-        ) : (
-          <div>No puzzle id</div>
-        )}
-      </div>
+    <>
+      <div className="bg-neutral-300 h-full w-full flex flex-col items-center">
+        <div className="w-full h-fit max-h-[600px] overflow-auto flex flex-row items-start justify-center p-4">
+          {puzzleId ? (
+            <ErrorBoundary fallback={<div>error</div>}>
+              <Suspense fallback={<div>Loading...</div>}>
+                <Fetcher puzzleId={puzzleId}>
+                  <PuzzleContainer />
+                </Fetcher>
+              </Suspense>
+            </ErrorBoundary>
+          ) : (
+            <div>No puzzle id</div>
+          )}
+        </div>
 
-      <Control />
-    </div>
+        <Control />
+      </div>
+    </>
   )
 }
 

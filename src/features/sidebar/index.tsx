@@ -2,9 +2,9 @@ import { Link, useSearchParams } from 'react-router-dom'
 
 import Category from './components/Category'
 
-import SettingIcon from '../../assets/icons/Setting'
-import LoginIcon from '../../assets/icons/Login'
-import Tooltip from '../tooltip/Tooltip'
+// import SettingIcon from '../../assets/icons/Setting'
+// import LoginIcon from '../../assets/icons/Login'
+// import Tooltip from '../tooltip/Tooltip'
 import PuzzleList from './components/PuzzleList'
 import { Suspense } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
@@ -46,7 +46,7 @@ function Sidebar() {
       </div>
 
       {/* footer */}
-      <div className="absolute bottom-0 w-full h-16 flex flex-row items-center justify-around shadow-[0_-15px_20px_-5px_rgba(0,0,0,0.2)]">
+      {/* <div className="absolute bottom-0 w-full h-16 flex flex-row items-center justify-around shadow-[0_-15px_20px_-5px_rgba(0,0,0,0.2)]">
         <div>
           <Tooltip message="개인 설정" position="top">
             <SettingIcon width={24} height={24} fill="#F5F5F5" />
@@ -57,7 +57,7 @@ function Sidebar() {
             <LoginIcon width={24} height={24} fill="#F5F5F5" />
           </Tooltip>
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }

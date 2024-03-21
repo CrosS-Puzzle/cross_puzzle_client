@@ -10,6 +10,7 @@ import store from './store/index.ts'
 import App from './App.tsx'
 
 import './index.css'
+import ModalProvider from './features/modal/ModalProvider.tsx'
 
 const querytClient = new QueryClient({
   defaultOptions: {
@@ -25,6 +26,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <QueryClientProvider client={querytClient}>
       <BrowserRouter>
         <React.StrictMode>
+          <ModalProvider />
           <App />
         </React.StrictMode>
       </BrowserRouter>

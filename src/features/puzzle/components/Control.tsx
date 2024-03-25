@@ -13,7 +13,7 @@ function Control() {
 
   useEffect(() => {
     const check = () => {
-      if (puzzle) {
+      if (puzzle && solvedWords !== totalWords) {
         const isSolved = solved.includes(puzzle.puzzleId)
         const isCheked = checked.includes(puzzle.puzzleId)
 

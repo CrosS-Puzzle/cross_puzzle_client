@@ -18,7 +18,7 @@ function PuzzleContainer() {
 
   return (
     <div
-      className={twMerge('bg-transparent relative p-1 m-1')}
+      className={twMerge('bg-transparent relative')}
       style={{
         width: `${width}px`,
         height: `${height}px`,

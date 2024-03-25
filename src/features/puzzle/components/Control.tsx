@@ -8,7 +8,7 @@ import { useModal } from '../../modal/redux/useModal'
 function Control() {
   const { selectedWord, puzzle, totalWords, solvedWords } = usePuzzleStore()
 
-  const { solved, checked } = useHistoryStore()
+  const { solved, checked, addSolved } = useHistoryStore()
   const { openModal } = useModal()
 
   useEffect(() => {
@@ -61,6 +61,34 @@ function Control() {
   if (puzzle?.answerInfos[selectedWord!]) {
     text = puzzle.answerInfos[selectedWord!].word.description
   }
+
+  useEffect(() => {
+    const completePuzzle = async () => {
+      await fetch(`/api/complete?id=${puzzle?.puzzleId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+    }
+
+    if (puzzle) {
+      if (solvedWords == totalWords) {
+        addSolved(puzzle.puzzleId)
+        openModal({
+          component: () => {
+            return (
+              <div className="flex flex-col">
+                <h1 className="text-2xl font-semibold">축하합니다!</h1>
+                <p className="mt-2">모든 단어를 맞추셨습니다.</p>
+              </div>
+            )
+          },
+        })
+        completePuzzle()
+      }
+    }
+  }, [solvedWords])
 
   return (
     <>
